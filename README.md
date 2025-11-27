@@ -75,6 +75,31 @@ to `false`: `tsc --pretty false`. However, doing this does more than
 just turning off the colors. It also causes `tsc` to produce less
 elaborate error messages.
 
+## Using `typescript-comint`
+
+`typescript-comint.el` ships with this repository and exposes a simple REPL that integrates with `typescript-mode`.
+
+1. Ensure `typescript-comint.el` is on your `load-path` (it is if you install the package normally).
+2. Start a REPL with `M-x typescript-run-repl`. Use `C-u M-x typescript-run-repl` to edit the command line if you need a different interpreter than the default `tsun`.
+3. From a `typescript-mode` buffer, send code to the REPL using:
+   - `M-x typescript-send-last-sexp`
+   - `M-x typescript-send-region`
+   - `M-x typescript-send-buffer`
+   The `-and-go` variants will switch to the REPL after sending.
+4. Load files directly into the REPL with `M-x typescript-load-file` (or `typescript-load-file-and-go`).
+5. Switch to the REPL at any time with `M-x typescript-switch-to-repl`.
+
+Example minimal setup:
+
+```elisp
+(add-hook 'typescript-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-z") #'typescript-run-repl)
+            (local-set-key (kbd "C-x C-e") #'typescript-send-last-sexp)
+            (local-set-key (kbd "C-c C-b") #'typescript-send-buffer-and-go)
+            (local-set-key (kbd "C-c l") #'typescript-load-file-and-go)))
+```
+
 # Contributing
 
 To run the tests you can run `make test`.
