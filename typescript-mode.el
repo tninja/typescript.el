@@ -40,6 +40,9 @@
 ;; `global-font-lock-mode'), automatic indentation and filling of
 ;; comments.
 ;;
+;; TypeScript comint integration is adapted from ts-comint.el by
+;; Paul Huff, Stefano Mazzucco, and Jostein Kjonigsen.
+;;
 ;;
 ;; General Remarks:
 ;;
@@ -3152,6 +3155,22 @@ Key bindings:
 (eval-after-load 'folding
   '(when (fboundp 'folding-add-to-marks-list)
      (folding-add-to-marks-list 'typescript-mode "// {{{" "// }}}" )))
+
+;;;###autoload
+(autoload 'typescript-run-repl "typescript-comint"
+  "Run an inferior TypeScript REPL." t)
+
+;;;###autoload
+(autoload 'typescript-send-last-sexp "typescript-comint"
+  "Send the previous sexp to the inferior TypeScript process." t)
+
+;;;###autoload
+(autoload 'typescript-send-buffer "typescript-comint"
+  "Send the current buffer to the inferior TypeScript process." t)
+
+;;;###autoload
+(autoload 'typescript-load-file "typescript-comint"
+  "Load a file into the inferior TypeScript process." t)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-mode))
